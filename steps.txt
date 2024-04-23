@@ -1,0 +1,29 @@
+database folder ma database.js banayera database connect garne 
+controllers ma usercontroller.js ma sabai controllers ko functions rakhne
+Routes bhitra userRoutes.js banaune 
+route ma routes sabai use na garne bhayera chaine matra import garne
+const router =require('express').Router()
+exporting garne(module.exports=createUser)
+''user routes ma sabai kam hunxa so sabai import garna parne hunxa routes and controllers''
+
+configuring user routes garne ani
+'app.use('/api/user',require('./routes/userRoutes'))'
+routes haru bata router lai export garne
+
+model ma usermodel.js bhanne file banaune 
+schema define garne- model ma 
+
+
+usercontroller.js ma gayera logic lekhne 
+
+
+
+
+Task
+controller -routes -index.js
+(Make a productController.js)
+(Make a productRoutes,js)
+(link to index.js)
+
+http:localhost:5000/api/product/create
+Response :Product API is working......................
