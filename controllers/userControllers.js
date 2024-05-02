@@ -1,5 +1,6 @@
 // Import the userModel correctly
 const userModel = require('../models/userModels');
+const bcrypt =require('bcrypt')
 
 // Create the createUser function
 const createUser = async (req, res) => {
@@ -24,13 +25,17 @@ const createUser = async (req, res) => {
                 "message": "User already exists"
             });
         }
+ //Hash the passowrd
+    const randomSalt=await bcrypt.genSalt(10);
+    const hashedPassword =await bcrypt.hash(password,randomSalt)
+    
 
         // Create a new user if not exists
         const newUser = new userModel({
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: password,
+            password: hashedPassword,
         });
 
         // Save the new user
