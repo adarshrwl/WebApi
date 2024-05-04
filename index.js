@@ -58,6 +58,8 @@ app.use('/api/product',require('./routes/productRoutes'))
 // API URL:: http://localhost:5500/test
 
 
+app.use('/api/appointment',require('./routes/appointmentRoutes'))
+
 
 
 

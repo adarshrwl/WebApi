@@ -1,4 +1,3 @@
-const { default: mongoose } = require('mongoose');
 const Mongoose=require('mongoose');
 const bookAppoinment=new Mongoose.Schema({
     date:{
