@@ -1,43 +1,53 @@
-const contactModel = require('../models/contactModel')
-const createContact = async (req, res) => {
-    console.log(req.body)
-    const{contactName,Email,phoneNumber}=req.body;
+// Import the Contact model
+const contactModel = require('../models/contactModel');
 
-    if(!contactName||!Email||!phoneNumber){
+// The createContact function
+const createContact = async (req, res) => {
+    console.log(req.body);
+    const { contactName, Email, phoneNumber } = req.body;
+
+    // Validate input fields
+    if (!contactName || !Email || !phoneNumber) {
         return res.json({
-            "Success": false,
-            "message": "please enter all fields!"
-        })
+            "success": false,
+            "message": "Please enter all fields!"
+        });
     }
-    try{
-        const existingContact=await contactModel.findOne({phoneNumber:phoneNumber})
-        if(existingContact){
+
+    try {
+        // Check if the contact already exists
+        const existingContact = await contactModel.findOne({ phoneNumber: phoneNumber });
+        if (existingContact) {
             return res.json({
                 "success": false,
                 "message": "User Already Exists!"
-            })
+            });
         }
-        const newContact=new contactModel({
-            contactName:contactName,
-            Email:Email,
-            phoneNumber:phoneNumber
-        })
 
-        await newContact.save()
+        // Create a new contact
+        const newContact = new contactModel({
+            contactName,
+            Email,
+            phoneNumber
+        });
+
+        // Save the new contact to the database
+        await newContact.save();
 
         res.json({
             "success": true,
             "message": "User Created Successfully"
-        })
+        });
 
-    }catch(error){
-        console.log(error)
-        res.json({
+    } catch (error) {
+        console.error('Error while creating contact:', error);
+        res.status(500).json({
             "success": false,
-            "message": "internal server error!"
-        })
+            "message": "Internal server error!",
+            "error": error.message  // Detailed error message for diagnosis
+        });
     }
+};
 
-}
-
-module.exports={createContact}
+// Export the function(s) to be used in other files
+module.exports = { createContact };
