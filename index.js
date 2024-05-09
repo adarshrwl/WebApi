@@ -3,14 +3,24 @@ const express=require('express');
 const dotenv=require('dotenv');
 const mongoose =require('mongoose');
 const connectDB = require('./database/database');
+const { options } = require('./routes/userRoutes');
 
-
+const cors=require('cors')
 
 
 // 2. Creating an express app 
 const app=express();
 //Jason Condig 
 app.use(express.json())
+
+//Cors Config
+const corsOptions={
+    origin:true,
+    credentials:true,
+    optionSuccessStatus:200,
+}
+app.use(cors(corsOptions))
+
 
 //configuring dotenv
 dotenv.config()
@@ -32,9 +42,7 @@ const PORT=process.env.PORT;
 
 
 //4. starting the server
-app.listen(PORT,()=>{
-    console.log(`Server-app is running on ${PORT}`)
-})
+
 //`` this is used to make it dynamic
 
 
@@ -61,3 +69,6 @@ app.use('/api/user', require('./routes/contactRoutes'))
 app.use('/api/reservation', require('./routes/reservationRoutes'))
 app.use('/api/appointments', require('./routes/appointmentRoutes'))
 
+app.listen(PORT,()=>{
+    console.log(`Server-app is running on ${PORT}`)
+})
