@@ -18,14 +18,14 @@ const createUser = async (req, res) => {
     // Error handling using try...catch
     try {
         // Check if user already exists
-        const existingUser = await userModel.findOne({ email: email });
-        if (existingUser) {
-            return res.json({
-                "success": false,
-                "message": "User already exists"
-            });
+            const existingUser = await userModel.findOne({ email: email });
+            if (existingUser) {
+                return res.json({
+                    "success": false,
+                    "message": "User already exists"
+                });
         }
- //Hash the passowrd
+ //Hash the passowrd    
     const randomSalt=await bcrypt.genSalt(10);
     const hashedPassword =await bcrypt.hash(password,randomSalt)
     
