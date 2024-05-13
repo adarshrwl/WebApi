@@ -54,6 +54,9 @@ app.get('/test',(req,res)=>{
     res.send("Test API is Working..!")
 })
 
+app.get('/test_new',(req,res)=>{
+    res.send("New API is Working..!")
+})
 
 
 // Configure user routes 
