@@ -71,6 +71,7 @@ app.use('/api/product',require('./routes/productRoutes'))
 app.use('/api/user', require('./routes/contactRoutes'))
 app.use('/api/reservation', require('./routes/reservationRoutes'))
 app.use('/api/appointments', require('./routes/appointmentRoutes'))
+app.use('/api/login',require('./routes/loginRoutes'))
 
 app.listen(PORT,()=>{
     console.log(`Server-app is running on ${PORT}`)
