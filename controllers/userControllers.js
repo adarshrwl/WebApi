@@ -1,6 +1,7 @@
 // Import the userModel correctly
 const userModel = require('../models/userModels');
 const bcrypt =require('bcrypt')
+const jwt=require('jsonwebtoken')
 
 // Create the createUser function
 const createUser = async (req, res) => {
@@ -57,7 +58,67 @@ const createUser = async (req, res) => {
     }
 };
 
+
+//2 Login User function
+const loginUser =async (req,res)=>{
+    console.log(req.body)
+    //destructuring
+    const { email, password } = req.body;
+    
+    //validation 
+    if (!email || !password) {
+        return res.json({
+            success: false,
+            message: "Please provide email and password"
+        });
+    }
+
+
+    try{
+        // 1. find user,if [not] stop the process
+        const user =await userModel.findOne({email:email})
+        if(!user){
+            return res.json({
+                success:false,
+                message:"User not found "
+            });
+        }
+        // 2. compare the password,if not stop the process 
+        const isValidPassword=await bcrypt.compare(password,user.password)
+        if(!isValidPassword){
+            return res.json({
+                success:false,
+                message:"Password is not matching"
+            });
+        }
+        // 3. Generatae JWT token
+        // 3.1. Srecet Dectyption key(.env)
+        const token=await jwt.sign({id:user._id},
+            process.env.JWT_SECRET
+        )
+        
+        
+        
+        // 4. Send the token,UserData, Message to the user 
+        res.json({
+            "success":true,
+            "message":"Login Successful",
+            "Token":token,
+            "userData":user
+        })
+
+    } catch(error){
+        console.log(error)
+        res.json({
+            "success":false,
+            "message":"Internal Server Error"
+        })
+    }
+}
+
+
 // Export the function
 module.exports = {
     createUser,
+    loginUser,
 };
