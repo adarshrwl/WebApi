@@ -5,13 +5,18 @@ const mongoose =require('mongoose');
 const connectDB = require('./database/database');
 const { options } = require('./routes/userRoutes');
 
-const cors=require('cors')
+const cors=require('cors');
+const multipart = require('connect-multiparty');
 
 
 // 2. Creating an express app 
 const app=express();
 //Jason Condig 
 app.use(express.json())
+
+//Accepting Form Data(json,image,video,audio,etc)
+app.use(multipart())
+
 
 //Cors Config
 const corsOptions={

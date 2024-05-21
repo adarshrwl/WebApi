@@ -12,7 +12,7 @@ const contactSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
         require: true
-    }
+    },
 });
 
 const Contact = mongoose.model('contact', contactSchema)
