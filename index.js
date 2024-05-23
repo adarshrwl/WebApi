@@ -18,7 +18,7 @@ app.use(express.json())
 // //Accepting Form Data(json,image,video,audio,etc)
 // app.use(multipart())
 //multipart replacement 
-app.use(express-fileUpload)
+app.use(fileUpload())
 
 //Cors Config
 const corsOptions={
