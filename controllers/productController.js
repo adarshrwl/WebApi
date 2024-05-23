@@ -1,4 +1,6 @@
 const Path = require('path');
+const fs = require('fs');
+const productModel = require('../models/productModel');
 
 const createProduct = async (req, res) => {
     // Check for incoming data
@@ -33,10 +35,29 @@ const createProduct = async (req, res) => {
     // 2. Define specific path
     const imageUploadPath = Path.join(__dirname, `../public/products/${imageName}`);
 
+    // Ensure the directory exists
+    fs.mkdirSync(Path.dirname(imageUploadPath), { recursive: true });
+
     // 3. Upload to that path (using async/await and try/catch)
     try {
         await productImage.mv(imageUploadPath);
-        res.send("Image Uploaded");
+
+        // Save to database
+        const newProduct = new productModel({
+            productName,
+            productPrice,
+            productCategory,
+            productDescription,
+            productImage: imageName
+        });
+
+        const product = await newProduct.save();
+
+        res.status(201).json({
+            success: true,
+            message: "Product Created!",
+            data: product
+        });
     } catch (error) {
         console.log(error);
         res.status(500).json({
