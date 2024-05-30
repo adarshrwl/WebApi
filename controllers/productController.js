@@ -68,6 +68,13 @@ const createProduct = async (req, res) => {
     }
 };
 
+
+const getAllProducts =(req,res)=>{
+    // 1. Find all the products
+    // 2.Send all the products
+}
+
 module.exports = {
-    createProduct
+    createProduct,
+    getAllProducts
 };
