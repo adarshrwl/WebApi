@@ -69,9 +69,21 @@ const createProduct = async (req, res) => {
 };
 
 
-const getAllProducts =(req,res)=>{
+const getAllProducts =async (req,res)=>{
     // 1. Find all the products
+    const products=await productModel.find({})
+    res.status(201).json({
+        "success":true,
+        "message":"Products Fetched Sucessfully",
+        "products": products,
+        
+    })
     // 2.Send all the products
+    try{
+
+    }catch(error){
+        console.log(error);
+    }
 }
 
 module.exports = {

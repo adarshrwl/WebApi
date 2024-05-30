@@ -20,6 +20,10 @@ app.use(express.json())
 //multipart replacement 
 app.use(fileUpload())
 
+
+//Make a public folder accrss to outside
+app.use(express.static('/public'))
+
 //Cors Config
 const corsOptions={
     origin:true,
