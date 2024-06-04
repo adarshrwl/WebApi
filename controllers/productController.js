@@ -94,7 +94,7 @@ const getAllProducts = async (req, res) => {
 //fetch single product
 const getProduct = async (req, res) => {
   //recive id from the req.params.id
-  const productId = req.params;
+  const productId = req.params.id;
   //find the product by id
   try {
     const product = await productModel.findById(productId);
